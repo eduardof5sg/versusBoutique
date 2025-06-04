@@ -65,47 +65,54 @@
         {/each}
       </div>
       {#if detailModal}
-      <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50  overflow-y-auto">
-        <div class="bg-white rounded-xl max-w-md w-full p-6 relative mt-32 ">
-          <button on:click={closeDetailModal} class="absolute w-12 h-12 bg-green-300 p-2 rounded-full top-6 right-8 text-white hover:text-black text-3xl">
-            X
+      <div class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center overflow-y-auto p-4">
+        <div class="bg-white rounded-xl w-full max-w-xl p-2 relative overflow-y-auto max-h-[90vh]">
+          
+          <button
+            on:click={closeDetailModal}
+            class="absolute w-10 h-10 bg-green-300 p-1.5 rounded-full top-4 right-4 text-white hover:text-black text-xl flex items-center justify-center"
+            aria-label="Cerrar"
+          >
+            ✕
           </button>
-    
-          <img src={selectedProduct.images[0]} alt={selectedProduct.name} class="w-full  object-cover rounded-md mb-4" />
-    
+      
+          <img
+            src={selectedProduct.images[0]}
+            alt={selectedProduct.name}
+            class="w-full object-cover rounded-md mb-4 h-full"
+          />
+      
           <h2 class="text-2xl font-bold mb-2 text-green-400 text-center">{selectedProduct.name}</h2>
           <p class="text-gray-700 mb-2">{selectedProduct.description}</p>
           <p class="text-green-300 text-2xl font-bold mb-4">{selectedProduct.price} €</p>
-    
-          <h3 class="font-semibold mb-2">Colores, tallas y stock:</h3>
-
-            <div class="space-y-4">
+      
+          <div class="space-y-4">
             {#each selectedProduct.colors as color}
-                <div class="border rounded-lg p-3 bg-gray-50">
-                    <p class="font-semibold text-gray-700 mb-1 flex items-center gap-2">
-                        
-                        <span
-                          class="w-12 h-4 rounded-full border border-gray-300"
-                          style="background-color: {color.color};"
-                        ></span>
-                        
-                      </p>
+              <div class="border rounded-lg p-3 bg-gray-50">
+                <p class="font-semibold text-gray-700 mb-1 flex items-center gap-2">
+                  <span
+                    class="w-6 h-6 rounded-full border border-gray-300"
+                    style="background-color: {color.color};"
+                  ></span>
+                  <span class="capitalize">{color.color}</span>
+                </p>
+      
                 <div class="grid grid-cols-2 gap-2 text-sm text-gray-800 mt-2">
-                    <div class="font-semibold">Talla</div>
-                    
-                    <div class="font-semibold">Estado</div>
-
-                    {#each color.stock as s}
+                  <div class="font-semibold">Talla</div>
+                  <div class="font-semibold">Estado</div>
+      
+                  {#each color.stock as s}
                     <div>{s.size}</div>
-                    
                     <div>{s.quantity > 0 ? 'Disponible' : 'Agotado'}</div>
-                    {/each}
+                  {/each}
                 </div>
-                </div>
+              </div>
             {/each}
-            </div>
+          </div>
+      
         </div>
       </div>
+      
     {/if}
     
 	{/if}  
