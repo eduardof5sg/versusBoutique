@@ -38,7 +38,7 @@
 <main>
     <NavBar />
     <div class="mt-6">
-        <h1 class="text-4xl text-center text-green-400">Vestidos</h1>
+        <h1 class="text-4xl text-center font-bold text-purple-400">Vestidos</h1>
     </div>
     <div>
       {#if messageError}
@@ -57,9 +57,8 @@
               class="w-full h-48 object-cover"
             />
             <div class="p-4">
-              <h2 class="text-lg font-semibold mb-2">{product.name}</h2>
-              <p class="text-gray-600 text-sm mb-2 truncate">{product.description}</p>
-              <p class="text-xl font-bold text-green-300">{product.price} €</p>
+              <h2 class="text-lg font-semibold ">{product.name}</h2>
+              <p class="text-xl font-bold text-purple-400">{product.price} EUR</p>
             </div>
           </div>
         {/each}
@@ -70,7 +69,7 @@
           
           <button
             on:click={closeDetailModal}
-            class="absolute w-10 h-10 bg-green-300 p-1.5 rounded-full top-4 right-4 text-white hover:text-black text-xl flex items-center justify-center"
+            class="absolute w-10 h-10 bg-purple-300 p-1.5 rounded-full top-4 right-4 text-white hover:text-black text-xl flex items-center justify-center"
             aria-label="Cerrar"
           >
             ✕
@@ -82,9 +81,9 @@
             class="w-full object-cover rounded-md mb-4 h-full"
           />
       
-          <h2 class="text-2xl font-bold mb-2 text-green-400 text-center">{selectedProduct.name}</h2>
+          <h2 class="text-2xl font-bold mb-2 text-purple-400 text-center">{selectedProduct.name}</h2>
           <p class="text-gray-700 mb-2">{selectedProduct.description}</p>
-          <p class="text-green-300 text-2xl font-bold mb-4">{selectedProduct.price} €</p>
+          <p class="text-purple-600 text-2xl font-bold mb-4">{selectedProduct.price} €</p>
       
           <div class="space-y-4">
             {#each selectedProduct.colors as color}

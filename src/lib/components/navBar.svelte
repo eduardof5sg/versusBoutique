@@ -2,7 +2,7 @@
     let isOpen = false;
   </script>
   
-  <nav class="bg-green-200 px-4 py-3 shadow-md">
+  <nav class="bg-purple-300 px-4 py-3 shadow-md">
     <div class="max-w-7xl mx-auto flex items-center justify-between">
       
       <button class="md:hidden text-white" on:click={() => isOpen = !isOpen}>
