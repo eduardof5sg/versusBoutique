@@ -1,52 +1,69 @@
 <script>
-    import "../../../app.css"
+	import "../../../app.css";
 	import { page } from '$app/stores';
-	import { onMount } from 'svelte';
 	import axiosCategory from '$lib/endpoints/categorys';
-    import NavBar from "$lib/components/navBar.svelte";
+	import NavBar from "$lib/components/navBar.svelte";
 
 	let id;
 	let products = [];
-    let selectedProduct = null;
-    let detailModal = false;
+	let selectedProduct = null;
+	let detailModal = false;
 	let messageError = '';
 
 	// Obtener el ID desde la URL (id = nombre de categoría)
 	$: id = $page.params.id;
 
-	onMount(async () => {
+	// Mapeo de nombres de categorías por ID
+	const categoryNames = {
+		'6838edc3aeb3e70a331d3b25': 'Vestidos',
+		'6841601882013d5a626eaf1d': 'Faldas',
+		'6841601882013d5a626eaf22': 'Pantalones' // ejemplo adicional
+	};
+
+	// Título de categoría
+	$: categoryTitle = categoryNames[id] || 'Productos';
+
+	// Cargar productos cada vez que cambia el ID
+	$: if (id) {
+		loadProducts();
+	}
+
+	// Función para cargar productos
+	async function loadProducts() {
 		try {
 			const response = await axiosCategory.get(`/${id}`);
 			products = response.data;
-            console.log(products)
+			messageError = '';
 		} catch (error) {
 			messageError = error.message;
 		}
-	});
+	}
 
-    function openDetailModal(product){
-        selectedProduct = product;
-        detailModal= true;
-    }
+	// Modal
+	function openDetailModal(product) {
+		selectedProduct = product;
+		detailModal = true;
+	}
 
-    function closeDetailModal (){
-        selectedProduct = null ;
-        detailModal = false;
-    }
+	function closeDetailModal() {
+		selectedProduct = null;
+		detailModal = false;
+	}
 </script>
+
 
 <main>
     <NavBar />
-    <div class="mt-6">
-        <h1 class="text-4xl text-center font-bold text-purple-400">Vestidos</h1>
-    </div>
+    <div class="mt-2">
+      <h1 class="text-4xl text-center font-bold text-purple-400">{categoryTitle}</h1>
+  </div>
     <div>
       {#if messageError}
 		<p class="text-red-600">{messageError}</p>
 	{:else if products.length === 0}
 		<p>No hay productos en esta categoría.</p>
 	{:else}
-    <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-6 p-4">
+    <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-6 p-4 mt-2">
         {#each products as product}
           <div
             class="bg-white shadow-md rounded-2xl overflow-hidden w-full cursor-pointer"
@@ -57,7 +74,7 @@
               class="w-full h-48 object-cover"
             />
             <div class="p-4">
-              <h2 class="text-lg font-semibold ">{product.name}</h2>
+              <h2 class="text-[12px] w-full font-semibold ">{product.name}</h2>
               <p class="text-xl font-bold text-purple-400">{product.price} EUR</p>
             </div>
           </div>
@@ -90,19 +107,21 @@
               <div class="border rounded-lg p-3 bg-gray-50">
                 <p class="font-semibold text-gray-700 mb-1 flex items-center gap-2">
                   <span
-                    class="w-6 h-6 rounded-full border border-gray-300"
+                    class="w-12 h-4 rounded-full border border-gray-300"
                     style="background-color: {color.color};"
                   ></span>
-                  <span class="capitalize">{color.color}</span>
+                  
                 </p>
       
                 <div class="grid grid-cols-2 gap-2 text-sm text-gray-800 mt-2">
-                  <div class="font-semibold">Talla</div>
-                  <div class="font-semibold">Estado</div>
+                  <div class="font-semibold text-purple-600">Talla</div>
+                  <div class="font-semibold text-purple-600">Estado</div>
       
                   {#each color.stock as s}
-                    <div>{s.size}</div>
-                    <div>{s.quantity > 0 ? 'Disponible' : 'Agotado'}</div>
+                    <div class="font-bold text-ml">{s.size}</div>
+                    <div class="{s.quantity > 0 ? 'text-green-600 font-semibold' : 'text-red-600 font-semibold'}">
+                      {s.quantity > 0 ? 'Disponible' : 'Agotado'}
+                    </div>
                   {/each}
                 </div>
               </div>
