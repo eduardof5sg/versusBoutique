@@ -17,7 +17,7 @@
 	const categoryNames = {
 		'6838edc3aeb3e70a331d3b25': 'Vestidos',
 		'6841601882013d5a626eaf1d': 'Faldas',
-		'6841601882013d5a626eaf22': 'Pantalones' // ejemplo adicional
+		'6841680282013d5a626eaf24': 'Pantalones' // ejemplo adicional
 	};
 
 	// Título de categoría

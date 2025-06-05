@@ -5,7 +5,7 @@
   const categories = [
     { name: 'Vestidos', id: '6838edc3aeb3e70a331d3b25' },
     { name: 'Faldas', id: '6841601882013d5a626eaf1d' },
-    { name: 'Pantalones', id: '6841601882013d5a626eaf22' } // ejemplo
+    { name: 'Pantalones', id: '6841680282013d5a626eaf24' } // ejemplo
   ];
 </script>
 
