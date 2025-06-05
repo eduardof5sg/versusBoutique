@@ -49,6 +49,11 @@
 		selectedProduct = null;
 		detailModal = false;
 	}
+
+  function toggleSection(id) {
+    const el = document.getElementById(id);
+    el.classList.toggle("hidden");
+  }
 </script>
 
 
@@ -73,9 +78,9 @@
               alt={product.name}
               class="w-full h-48 object-cover"
             />
-            <div class="p-4">
-              <h2 class="text-[12px] w-full font-semibold ">{product.name}</h2>
-              <p class="text-xl font-bold text-purple-400">{product.price} EUR</p>
+            <div class="p-1">
+              <h2 class="text-sm w-full font-semibold ">{product.name}</h2>
+              <p class="text-ml font-bold text-purple-400">{product.price} EUR</p>
             </div>
           </div>
         {/each}
@@ -97,10 +102,32 @@
             alt={selectedProduct.name}
             class="w-full object-cover rounded-md mb-4 h-full"
           />
-      
-          <h2 class="text-2xl font-bold mb-2 text-purple-400 text-center">{selectedProduct.name}</h2>
+          <div class="p-1">
+            <h2 class="text-2xl font-bold mb-2 text-purple-400  ">{selectedProduct.name}</h2>
           <p class="text-gray-700 mb-2">{selectedProduct.description}</p>
           <p class="text-purple-600 text-2xl font-bold mb-4">{selectedProduct.price} €</p>
+          </div>
+          
+          <div class="space-y-4 p-1 max-w-md mx-auto mb-4">
+
+            <h2 class="font-bold text-2xl text-gray-700">Detalles</h2>
+            <!-- Botón 1 -->
+            <div>
+              <button on:click={() => toggleSection('section1')} class="text-purple-400 font-bold">Materiales ⏷ </button>
+              <div id="section1" class="hidden mt-2 text-sm text-gray-700">
+                {selectedProduct.material}
+              </div>
+            </div>
+            <hr class="border-t-2 border-purple-600 my-4">
+            <!-- Botón 2 -->
+            <div>
+              <button on:click={() => toggleSection('section2')} class="text-purple-400 font-bold">Estampado ⏷</button>
+              <div id="section2" class="hidden mt-2 text-sm text-gray-700">
+               {selectedProduct.print}
+              </div>
+            </div>
+          </div>
+          
       
           <div class="space-y-4">
             {#each selectedProduct.colors as color}
