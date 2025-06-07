@@ -24,7 +24,8 @@
     <!-- Menú Desktop -->
     <div class="hidden md:flex gap-6 text-white font-medium items-center relative">
       <a href="/" class="hover:underline">Inicio</a>
-
+      <a href="/newcollection" class="hover:underline">Nueva Coleccion</a>
+      <a href="/productos" class="hover:underline">Categorias</a>
       <!-- Dropdown Productos -->
       <div class="relative" on:mouseenter={() => showDropdown = true} on:mouseleave={() => showDropdown = false}>
         <button class="hover:underline">Productos</button>
@@ -48,9 +49,10 @@
 
   <!-- Menú móvil -->
   {#if isOpen}
-    <div class="md:hidden mt-2 flex flex-col gap-2 text-white font-medium px-4">
+    <div class="md:hidden mt-2 flex flex-col gap-2 text-white font-medium px-2">
       <a href="/" class="hover:underline">Inicio</a>
-
+      <a href="/newcollection" class="hover:underline text-purple-700 text-[18px] w-36 font-bold">Nueva Coleccion</a>
+      <a href="/productos" class="hover:underline">Categorias</a>
       <!-- Productos con submenú -->
       <details class="group">
         <summary class=" hover:underline">Productos</summary>

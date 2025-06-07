@@ -8,9 +8,21 @@
     const vestidos = '/images/vestidos.jpg';
     const faldas = '/images/faldas.jpg';
     const pantalones = '/images/pantalones.jpg'
+    const coleccion = '/video/coleccion.mp4'
   </script>
   <main class="bg-purple-200">
     <NavBar />
+    <div class="mt-2 ">
+      <div
+    class="relative h-[200px] cursor-pointer "
+    on:click={() => goto('/newcollection')}>
+    <video  class="object-cover brightness-75   rounded-sm " autoplay muted loop src={coleccion}></video>
+    <h2
+      class="absolute top-1/2 mt-4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[350px] text-white text-center text-6xl font-bold">
+      New Collection
+    </h2>
+     </div>  
+    </div>
     <div class="mt-2 ">
       <div
     class="relative h-[200px] cursor-pointer "

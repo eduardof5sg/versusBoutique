@@ -1,45 +1,23 @@
 <script>
-	import "../../../app.css";
-	import { page } from '$app/stores';
-	import axiosCategory from '$lib/endpoints/categorys';
-	import NavBar from "$lib/components/navBar.svelte";
-
-	let id;
-	let products = [];
-	let selectedProduct = null;
+    import '../../app.css';
+    import axiosProducts from '$lib/endpoints/newCollection';
+    import { onMount } from 'svelte';
+    import NavBar from '$lib/components/navBar.svelte';
+    let newProducts = [];
+    let selectedProduct = null;
 	let detailModal = false;
-	let messageError = '';
 
-	// Obtener el ID desde la URL (id = nombre de categoría)
-	$: id = $page.params.id;
+    async function loadNewCollection(){
+        try {
+            const response = await axiosProducts.get('/newcollection');
+            newProducts = response.data.newProduct
+            console.log(newProducts)
+        } catch (error) {
+            throw error
+        }
+    }
 
-	// Mapeo de nombres de categorías por ID
-	const categoryNames = {
-		'6838edc3aeb3e70a331d3b25': 'Vestidos',
-		'6841601882013d5a626eaf1d': 'Faldas',
-		'6841680282013d5a626eaf24': 'Pantalones' // ejemplo adicional
-	};
-
-	// Título de categoría
-	$: categoryTitle = categoryNames[id] || 'Productos';
-
-	// Cargar productos cada vez que cambia el ID
-	$: if (id) {
-		loadProducts();
-	}
-
-	// Función para cargar productos
-	async function loadProducts() {
-		try {
-			const response = await axiosCategory.get(`/${id}`);
-			products = response.data;
-			messageError = '';
-		} catch (error) {
-			messageError = error.message;
-		}
-	}
-
-	// Modal
+    	// Modal
 	function openDetailModal(product) {
 		selectedProduct = product;
 		detailModal = true;
@@ -50,26 +28,20 @@
 		detailModal = false;
 	}
 
-  function toggleSection(id) {
+    function toggleSection(id) {
     const el = document.getElementById(id);
     el.classList.toggle("hidden");
   }
+
+    onMount(() =>loadNewCollection() )
 </script>
-
-
 <main>
     <NavBar />
     <div class="mt-2">
-      <h1 class="text-4xl text-center font-bold text-purple-400">{categoryTitle}</h1>
-  </div>
-    <div>
-      {#if messageError}
-		<p class="text-red-600">{messageError}</p>
-	{:else if products.length === 0}
-		<p>No hay productos en esta categoría.</p>
-	{:else}
+        <h1 class="text-4xl text-center font-bold text-purple-400">Nueva colección</h1>
+    </div>
     <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-6 p-4 mt-2">
-        {#each products as product}
+        {#each newProducts as product}
           <div
             class="bg-white shadow-md rounded-2xl overflow-hidden w-full cursor-pointer"
             on:click={() => openDetailModal(product)}>
@@ -113,7 +85,7 @@
             <h2 class="font-bold text-2xl text-gray-500">Detalles</h2>
             <!-- Botón 1 -->
             <div>
-              <button on:click={() => toggleSection('section1')} class="text-purple-400 font-bold">Materiales ▼ </button>
+              <button on:click={() => toggleSection('section1')} class="text-purple-400 font-bold">Materiales ▼</button>
               <div id="section1" class="hidden mt-2 text-sm text-gray-700">
                 {selectedProduct.material}
               </div>
@@ -157,8 +129,4 @@
       </div>
       
     {/if}
-    
-	{/if}  
-    </div>
-	
 </main>
