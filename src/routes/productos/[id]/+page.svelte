@@ -3,6 +3,7 @@
 	import { page } from '$app/stores';
 	import axiosCategory from '$lib/endpoints/categorys';
 	import NavBar from "$lib/components/navBar.svelte";
+  import OfertasButton from "$lib/components/ofertasButton.svelte";
 
 	let id;
 	let products = [];
@@ -63,7 +64,7 @@
     <div class="mt-2">
       <h1 class="text-4xl text-center font-bold text-purple-400">{categoryTitle}</h1>
   </div>
-    <div>
+    <div class="relative">
       {#if messageError}
 		<p class="text-red-600">{messageError}</p>
 	{:else if products.length === 0}
@@ -171,5 +172,5 @@
     
 	{/if}  
     </div>
-	
+	<OfertasButton />
 </main>

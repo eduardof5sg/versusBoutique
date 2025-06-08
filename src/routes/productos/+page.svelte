@@ -1,5 +1,6 @@
 <script>
     import NavBar from '$lib/components/navBar.svelte';
+    import OfertasButton from '$lib/components/ofertasButton.svelte';
     import { goto } from '$app/navigation';
     import "../../app.css"
     const vestidosId = '6838edc3aeb3e70a331d3b25';
@@ -12,7 +13,7 @@
     const abrigos = '/images/abrigos.jpg'
     const coleccion = '/video/coleccion.mp4'
   </script>
-  <main class="bg-purple-200">
+  <main class=" bg-purple-200">
     <NavBar />
     <div class="mt-2 ">
       <div
@@ -81,7 +82,7 @@
     </h2>
      </div>  
     </div>
-    
+    <OfertasButton />
   </main>
   
   
