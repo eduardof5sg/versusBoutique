@@ -30,7 +30,7 @@
     <img
       src={vestidos}
       alt="vestidos"
-      class="w-full h-full object-cover brightness-90 rounded-xl" />
+      class="w-full h-full object-cover brightness-90 " />
     <h2
       class="absolute top-1/2 mt-4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[350px] text-white text-center text-6xl font-bold">
       Vestidos
@@ -44,7 +44,7 @@
     <img
       src={faldas}
       alt="faldas"
-      class="w-full h-full object-cover brightness-50 rounded-xl" />
+      class="w-full h-full object-cover brightness-50 " />
     <h2
       class="absolute top-1/2 mt-4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[350px] text-white text-center text-6xl font-bold">
       Faldas
@@ -58,7 +58,7 @@
     <img
       src={pantalones}
       alt="pantalones"
-      class="w-full h-full object-cover brightness-50 rounded-xl" />
+      class="w-full h-full object-cover brightness-50 " />
     <h2
       class="absolute top-1/2 mt-4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[350px] text-white text-center text-6xl font-bold">
       Pantalones

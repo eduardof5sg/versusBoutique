@@ -43,7 +43,7 @@
         {/if}
       </div>
 
-      <a href="/contacto" class="hover:underline">Contacto</a>
+      <a href="/aboutus" class="hover:underline">Sobre nosotros</a>
     </div>
   </div>
 
@@ -63,7 +63,7 @@
         </div>
       </details>
 
-      <a href="/contacto" class="hover:underline">Contacto</a>
+      <a href="/aboutus" class="hover:underline">Sobre nosotros</a>
     </div>
   {/if}
 </nav>
