@@ -5,9 +5,11 @@
     const vestidosId = '6838edc3aeb3e70a331d3b25';
     const faldasId = '6841601882013d5a626eaf1d';
     const pantalonesId = '6841680282013d5a626eaf24';
+    const abrigosId = '6845acd6a0316f4537fd5853';
     const vestidos = '/images/vestidos.jpg';
     const faldas = '/images/faldas.jpg';
     const pantalones = '/images/pantalones.jpg'
+    const abrigos = '/images/abrigos.jpg'
     const coleccion = '/video/coleccion.mp4'
   </script>
   <main class="bg-purple-200">
@@ -62,6 +64,20 @@
     <h2
       class="absolute top-1/2 mt-4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[350px] text-white text-center text-6xl font-bold">
       Pantalones
+    </h2>
+     </div>  
+    </div>
+    <div class="mt-2">
+      <div
+    class="relative h-[200px] cursor-pointer "
+    on:click={() => goto(`/productos/${abrigosId}`)}>
+    <img
+      src={abrigos}
+      alt="abrigos"
+      class="w-full h-full object-cover brightness-50 " />
+    <h2
+      class="absolute top-1/2 mt-4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[350px] text-white text-center text-6xl font-bold">
+      Abrigos
     </h2>
      </div>  
     </div>

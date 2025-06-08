@@ -1,6 +1,8 @@
 <script>
+    import '../../app.css'
   let iconos = "/images/iconos.png";
   import NavBar from "$lib/components/navBar.svelte";
+ 
 </script>
 
 <main>
@@ -30,4 +32,6 @@
         <hr class="border-t-2 border-purple-200 my-4">
         <img src={iconos} alt="iconos">
     </div>
+    
+    
 </main>
