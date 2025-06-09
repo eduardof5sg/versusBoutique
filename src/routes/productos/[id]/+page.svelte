@@ -1,6 +1,7 @@
 <script>
 	import "../../../app.css";
 	import { page } from '$app/stores';
+  import { goto } from "$app/navigation";
 	import axiosCategory from '$lib/endpoints/categorys';
 	import NavBar from "$lib/components/navBar.svelte";
   import OfertasButton from "$lib/components/ofertasButton.svelte";
@@ -11,15 +12,37 @@
 	let detailModal = false;
 	let messageError = '';
 
+  let selectedColor = '';
+  let selectedSeason = '';
+  let maxPrice = '';
+
 	// Obtener el ID desde la URL (id = nombre de categoría)
 	$: id = $page.params.id;
+  $: uniqueColors = Array.from(new Set(
+  products.flatMap(p => p.colors?.map(c => c.color)).filter(Boolean)
+));
 
+$: filteredProducts = products.filter(p => {
+  const matchesColor = selectedColor
+    ? p.colors?.some(c => c.color === selectedColor)
+    : true;
+
+  const matchesSeason = selectedSeason
+    ? p.season === selectedSeason
+    : true;
+
+  const matchesPrice = maxPrice
+    ? parseFloat(p.price) <= parseFloat(maxPrice)
+    : true;
+
+  return matchesColor && matchesSeason && matchesPrice;
+});
 	// Mapeo de nombres de categorías por ID
 	const categoryNames = {
 		'6838edc3aeb3e70a331d3b25': 'Vestidos',
 		'6841601882013d5a626eaf1d': 'Faldas',
 		'6841680282013d5a626eaf24': 'Pantalones', // ejemplo adicional
-    '6845acd6a0316f4537fd5853' :'Abrigos'
+    '6845acd6a0316f4537fd5853' :'Chaquetas'
 	};
 
 	// Título de categoría
@@ -56,11 +79,80 @@
     const el = document.getElementById(id);
     el.classList.toggle("hidden");
   }
+
+  function changeCategory(newId) {
+    goto(`/productos/${newId}`);
+  }
 </script>
 
 
 <main>
     <NavBar />
+    <div class="flex  gap-2 p-4  rounded-xl mt-2 overflow-x-auto">
+      <button
+        on:click={() => changeCategory('6838edc3aeb3e70a331d3b25')}
+        class="px-4 py-2 rounded-lg text-white bg-purple-400 hover:bg-purple-500 font-semibold"
+      >
+        Vestidos
+      </button>
+      <button
+        on:click={() => changeCategory('6841601882013d5a626eaf1d')}
+        class="px-4 py-2 rounded-lg text-white  bg-purple-400 hover:bg-purple-500 font-semibold"
+      >
+        Faldas
+      </button>
+      <button
+        on:click={() => changeCategory('6841680282013d5a626eaf24')}
+        class="px-4 py-2 rounded-lg text-white bg-purple-400 hover:bg-purple-500 font-semibold"
+      >
+        Pantalones
+      </button>
+      <button
+        on:click={() => changeCategory('6845acd6a0316f4537fd5853')}
+        class="px-4 py-2 rounded-lg text-white bg-purple-400 hover:bg-purple-500 font-semibold"
+      >
+        Chaquetas
+      </button>
+    </div>
+    <div class="bg-purple-50 rounded-xl p-2 flex overflow-x-auto gap-4 sm:justify-start">
+
+      <!-- Color -->
+      <div class="flex flex-row items-center">
+        <label class="block font-semibold text-purple-500 p-1">Color:</label>
+        <select bind:value={selectedColor} class="rounded p-1">
+          <option value="">Todos</option>
+          {#each uniqueColors as color}
+            <option value={color}>{color}</option>
+          {/each}
+        </select>
+      </div>
+    
+      <!-- Temporada -->
+      <div class="flex flex-row items-center">
+        <label class="block font-semibold text-purple-500 ">Temporada:</label>
+        <select bind:value={selectedSeason} class="rounded p-1">
+          <option value="">Todas</option>
+          <option value="Verano">Verano</option>
+          <option value="Invierno">Invierno</option>
+          <option value="Primavera">Primavera</option>
+          <option value="Otoño">Otoño</option>
+        </select>
+      </div>
+    
+      <!-- Precio -->
+      <div class="flex flex-col gap-1 mb-4">
+  <label class="block font-semibold text-purple-500"> {maxPrice}€</label>
+  <input
+    type="range"
+    min="5"
+    max="200"
+    step="1"
+    bind:value={maxPrice}
+    class="w-[50px] accent-purple-400"
+  />
+</div>
+    
+    </div>
     <div class="mt-2">
       <h1 class="text-4xl text-center font-bold text-purple-400">{categoryTitle}</h1>
   </div>
@@ -71,7 +163,7 @@
 		<p>No hay productos en esta categoría.</p>
 	{:else}
     <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-6 p-4 mt-2">
-        {#each products as product}
+        {#each filteredProducts as product}
           <div
             class="bg-white shadow-md rounded-2xl overflow-hidden w-full cursor-pointer"
             on:click={() => openDetailModal(product)}>

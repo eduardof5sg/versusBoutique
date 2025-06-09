@@ -78,7 +78,7 @@
       class="w-full h-full object-cover brightness-50 " />
     <h2
       class="absolute top-1/2 mt-4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[350px] text-white text-center text-6xl font-bold">
-      Abrigos
+      Chaquetas
     </h2>
      </div>  
     </div>

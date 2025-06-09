@@ -2,11 +2,7 @@
   let isOpen = false;
   let showDropdown = false;
 
-  const categories = [
-    { name: 'Vestidos', id: '6838edc3aeb3e70a331d3b25' },
-    { name: 'Faldas', id: '6841601882013d5a626eaf1d' },
-    { name: 'Pantalones', id: '6841680282013d5a626eaf24' } // ejemplo
-  ];
+  
 </script>
 
 <nav class="bg-purple-300 px-4 py-3 shadow-md relative">
@@ -53,17 +49,10 @@
       <a href="/" class="hover:underline">Inicio</a>
       <a href="/newcollection" class="hover:underline text-purple-700 text-[18px] w-36 font-bold">Nueva Coleccion</a>
       <a href="/productos" class="hover:underline">Categorias</a>
-      <!-- Productos con submenú -->
-      <details class="group">
-        <summary class=" hover:underline">Productos</summary>
-        <div class="ml-4 mt-1 flex flex-col gap-1 text-purple-700">
-          {#each categories as category}
-            <a href={`/productos/${category.id}`} class="hover:underline text-sm bg-white rounded-xl p-2 w-32">{category.name}</a>
-          {/each}
-        </div>
-      </details>
-
       <a href="/aboutus" class="hover:underline">Sobre nosotros</a>
+      <a href="/ofertas" class="hover:underline text-red-500 font-bold">Ofertas %</a>
+
+      
     </div>
   {/if}
 </nav>
