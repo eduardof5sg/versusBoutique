@@ -1,12 +1,13 @@
 <script>
-	import "../../../app.css";
+	import "../../app.css"
 	import { page } from '$app/stores';
+    import { onMount } from "svelte";
   import { goto } from "$app/navigation";
 	import axiosCategory from '$lib/endpoints/categorys';
 	import NavBar from "$lib/components/navBar.svelte";
   import OfertasButton from "$lib/components/ofertasButton.svelte";
 
-	let id;
+	let accesoriosId = '684753c7fc07cb227ca9505a'
 	let products = [];
 	let selectedProduct = null;
 	let detailModal = false;
@@ -53,29 +54,15 @@ $: filteredProducts = products.filter(p => {
 
   return matchesColor && matchesSeason && matchesPrice && matchesSize;
 });
-	// Mapeo de nombres de categorías por ID
-	const categoryNames = {
-		'6838edc3aeb3e70a331d3b25': 'Vestidos',
-		'6841601882013d5a626eaf1d': 'Faldas',
-		'6841680282013d5a626eaf24': 'Pantalones', // ejemplo adicional
-    '6845acd6a0316f4537fd5853' :'Chaquetas',
-     '68474fc5fc07cb227ca95056': 'Camisetas & blusas ',
-     '68474fd2fc07cb227ca95058':'Conjuntos'
-	};
-
-	// Título de categoría
-	$: categoryTitle = categoryNames[id] || 'Productos';
-
-	// Cargar productos cada vez que cambia el ID
-	$: if (id) {
-		loadProducts();
-	}
+	
+	
 
 	// Función para cargar productos
 	async function loadProducts() {
 		try {
-			const response = await axiosCategory.get(`/${id}`);
+			const response = await axiosCategory.get(`/${accesoriosId}`);
 			products = response.data;
+            
 			messageError = '';
 		} catch (error) {
 			messageError = error.message;
@@ -98,52 +85,15 @@ $: filteredProducts = products.filter(p => {
     el.classList.toggle("hidden");
   }
 
-  function changeCategory(newId) {
-    goto(`/productos/${newId}`);
-  }
+  onMount(() =>loadProducts())
+
+  
 </script>
 
 
 <main>
     <NavBar />
-    <div class="flex  gap-2 p-2  rounded-xl mt-2 overflow-x-auto scrollbar-hide">
-      <button
-        on:click={() => changeCategory('68474fc5fc07cb227ca95056')}
-        class="px-4 py-2 rounded-lg text-white bg-purple-400 hover:bg-purple-500 font-semibold"
-      >
-        Básicos
-      </button>
-      <button
-        on:click={() => changeCategory('6838edc3aeb3e70a331d3b25')}
-        class="px-4 py-2 rounded-lg text-white bg-purple-400 hover:bg-purple-500 font-semibold"
-      >
-        Vestidos
-      </button>
-      <button
-        on:click={() => changeCategory('68474fd2fc07cb227ca95058')}
-        class="px-4 py-2 rounded-lg text-white bg-purple-400 hover:bg-purple-500 font-semibold"
-      >
-       Conjuntos
-      </button>
-      <button
-        on:click={() => changeCategory('6841601882013d5a626eaf1d')}
-        class="px-4 py-2 rounded-lg text-white  bg-purple-400 hover:bg-purple-500 font-semibold"
-      >
-        Faldas
-      </button>
-      <button
-        on:click={() => changeCategory('6841680282013d5a626eaf24')}
-        class="px-4 py-2 rounded-lg text-white bg-purple-400 hover:bg-purple-500 font-semibold"
-      >
-        Pantalones
-      </button>
-      <button
-        on:click={() => changeCategory('6845acd6a0316f4537fd5853')}
-        class="px-4 py-2 rounded-lg text-white bg-purple-400 hover:bg-purple-500 font-semibold"
-      >
-        Chaquetas
-      </button>
-    </div>
+
     <div class="rounded-xl p-2 flex overflow-x-auto scrollbar-hide gap-4 sm:justify-start">
 
 
@@ -195,7 +145,7 @@ $: filteredProducts = products.filter(p => {
     
     </div>
     <div >
-      <h1 class="text-4xl  font-bold text-purple-400 p-2">{categoryTitle}</h1>
+      <h1 class="text-4xl  font-bold text-purple-400 p-2">Accesorios</h1>
   </div>
     <div class="relative">
       {#if messageError}
@@ -283,7 +233,7 @@ $: filteredProducts = products.filter(p => {
       
           <div class="space-y-4">
             {#each selectedProduct.colors as color}
-              <div class="shadow-xl rounded-lg p-2 bg-gray-100  flex flex-row items-center gap-6">
+              <div class="shadow-xl rounded-lg p-2 bg-gray-100 flex flex-row items-center gap-6">
                 <p class="font-semibold text-gray-700 mb-1 flex items-center gap-2">
                   <span
                     class="w-6 h-6 rounded-full border border-gray-300 mt-3"

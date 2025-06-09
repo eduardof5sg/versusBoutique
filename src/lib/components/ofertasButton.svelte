@@ -3,7 +3,7 @@
 </script>
 <main>
     <div class="fixed top-[80vh] left-[68%] z-50 ">
-        <button class="w-20 h-20 p-3 rounded-full bg-green-600 text-white font-bold pulse-button" on:click={goto('/ofertas')}>Ofertas</button>
+        <button class="w-20 h-20 p-3 rounded-full bg-green-600 text-white font-bold pulse-button" on:click={() =>goto('/ofertas')}>Ofertas</button>
     </div>
 </main>
 <style>

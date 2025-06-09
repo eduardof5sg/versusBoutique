@@ -22,6 +22,7 @@
       <a href="/" class="hover:underline">Inicio</a>
       <a href="/newcollection" class="hover:underline">Nueva Coleccion</a>
       <a href="/productos" class="hover:underline">Categorias</a>
+      <a href="/accesorios" class="hover:underline">Accesorios</a>
       <!-- Dropdown Productos -->
       <div class="relative" on:mouseenter={() => showDropdown = true} on:mouseleave={() => showDropdown = false}>
         <button class="hover:underline">Productos</button>
@@ -47,8 +48,14 @@
   {#if isOpen}
     <div class="md:hidden mt-2 flex flex-col gap-2 text-white font-medium px-2">
       <a href="/" class="hover:underline">Inicio</a>
-      <a href="/newcollection" class="hover:underline text-purple-700 text-[18px] w-36 font-bold">Nueva Coleccion</a>
+      <a
+        href="/newcollection"
+        class="w-48 font-bold text-[18px] text-white hover:text-yellow-300 transition duration-300 ease-in-out animate-pulse"
+      >
+        Nueva Colección ⭐
+      </a>
       <a href="/productos" class="hover:underline">Categorias</a>
+      <a href="/accesorios" class="hover:underline">Accesorios</a>
       <a href="/aboutus" class="hover:underline">Sobre nosotros</a>
       <a href="/ofertas" class="hover:underline text-red-500 font-bold">Ofertas %</a>
 

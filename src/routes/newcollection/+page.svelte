@@ -5,7 +5,47 @@
     import NavBar from '$lib/components/navBar.svelte';
     let newProducts = [];
     let selectedProduct = null;
-	let detailModal = false;
+	  let detailModal = false;
+
+    let selectedColor = '';
+    let selectedSeason = '';
+    let selectedSize = '';
+    let maxPrice = '';
+
+    $: uniqueColors = Array.from(new Set(
+  newProducts.flatMap(p => p.colors?.map(c => c.color)).filter(Boolean)
+));
+$: uniqueSizes = Array.from(
+    new Set(
+      newProducts.flatMap(product =>
+        product.colors?.flatMap(color =>
+          color.stock?.map(s => s.size)
+        ) ?? []
+      )
+    )
+  ).sort(); // Opcional: ordena las tallas
+
+$: filteredProducts = newProducts.filter(p => {
+  const matchesColor = selectedColor
+    ? p.colors?.some(c => c.color === selectedColor)
+    : true;
+
+  const matchesSeason = selectedSeason
+    ? p.season === selectedSeason
+    : true;
+
+  const matchesPrice = maxPrice
+    ? parseFloat(p.price) <= parseFloat(maxPrice)
+    : true;
+
+    const matchesSize = selectedSize
+    ? p.colors?.some(c =>
+        c.stock?.some(s => s.size === selectedSize && s.quantity > 0)
+      )
+    : true;
+
+  return matchesColor && matchesSeason && matchesPrice && matchesSize;
+});
 
     async function loadNewCollection(){
         try {
@@ -37,13 +77,63 @@
 </script>
 <main>
     <NavBar />
-    <div class="mt-2">
-        <h1 class="text-4xl text-center font-bold text-purple-400">Nueva colección</h1>
+    <div class="rounded-xl p-2 flex overflow-x-auto scrollbar-hide gap-4 sm:justify-start">
+
+
+
+      <!-- Color -->
+      <div class="flex flex-row items-center">
+        <label class="block font-semibold text-purple-500 p-1">Color:</label>
+        <select bind:value={selectedColor} class="rounded p-1">
+          <option value="">Todos</option>
+          {#each uniqueColors as color}
+            <option value={color}>{color}</option>
+          {/each}
+        </select>
+      </div>
+    
+      <!-- Temporada -->
+      <div class="flex flex-row items-center">
+        <label class="block font-semibold text-purple-500 ">Temporada:</label>
+        <select bind:value={selectedSeason} class="rounded p-1">
+          <option value="">Todas</option>
+          <option value="Verano">Verano</option>
+          <option value="Invierno">Invierno</option>
+          <option value="Primavera">Primavera</option>
+          <option value="Otoño">Otoño</option>
+        </select>
+      </div>
+      <div class="flex flex-row items-center">
+        <label class="block font-semibold text-purple-500 ">Talla:</label>
+        <select bind:value={selectedSize} class="rounded p-1">
+          <option value="">Todas</option>
+          {#each uniqueSizes as size}
+            <option value={size}>{size}</option>
+          {/each}
+        </select>
+      </div>
+    
+      <!-- Precio -->
+      <div class="flex flex-col gap-1 mb-4">
+      <label class="block font-semibold text-purple-500"> {maxPrice}€</label>
+      <input
+        type="range"
+        min="5"
+        max="200"
+        step="1"
+        bind:value={maxPrice}
+        class="w-[90px] accent-purple-400"
+      />
+      </div>
+    
     </div>
-    <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-6 p-4 mt-2">
-        {#each newProducts as product}
+    <div class="mt-2">
+        <h1 class="text-4xl p-2 font-bold text-purple-400">Nueva colección</h1>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-6 p-2 mt-2">
+        {#each filteredProducts as product}
           <div
-            class="bg-white shadow-md rounded-2xl overflow-hidden w-full cursor-pointer"
+            class="bg-white shadow-md rounded-2xl overflow-hidden w-full cursor-pointer "
             on:click={() => openDetailModal(product)}>
             <img
               src={product.images[0]}

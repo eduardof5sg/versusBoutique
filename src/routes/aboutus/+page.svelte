@@ -9,7 +9,7 @@
     <NavBar />
     <div class="p-3">
        <h1 class="text-4xl font-bold text-purple-400 text-center">Sobre nosotros</h1>
-        <p class="mt-2 text-gray-600 p-4">
+        <p class="mt-2 text-gray-600 p-4 font-bold">
             En VersusModa, llevamos más de cuatro décadas vistiendo con elegancia y
             calidad a generaciones de familias. Somos una empresa familiar fundada con
             pasión por la moda y un firme compromiso con el trabajo bien hecho. Desde
